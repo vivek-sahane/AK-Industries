@@ -3,6 +3,7 @@ import { collection, getDocs, doc, updateDoc, getDoc } from 'firebase/firestore'
 import { db } from '../firebase'
 import { useAuth } from '../Components/AuthContext'
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai'
+import { Link } from 'react-router-dom'
 
 const ProductList = () => {
   const [products, setProducts] = useState([])
@@ -48,13 +49,13 @@ const ProductList = () => {
     <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 p-6'>
       {products.map(product => (
         <div key={product.id}>
-          <div className='rounded-2xl bg-white shadow-md hover:shadow-2xl transition duration-300 transform hover:-translate-y-1 hover:scale-105 border border-gray-200'>
+          <div className='rounded-2xl cursor-pointer bg-white shadow-md hover:shadow-2xl transition duration-300 transform hover:-translate-y-1 hover:scale-105 border border-gray-200'>
             {/* Image Section */}
             <div className='relative'>
               {user && (
                 <button
                   onClick={() => toggleFavorite(product.id)}
-                  className='absolute top-3 right-3 z-10 text-red-500 text-2xl'
+                  className='absolute cursor-pointer top-3 right-3 z-10 text-red-500 text-2xl'
                 >
                   {favorites.includes(product.id) ? <AiFillHeart /> : <AiOutlineHeart />}
                 </button>
@@ -85,9 +86,12 @@ const ProductList = () => {
               </div>
 
               <div className="mt-4 text-center">
-                <button className="px-5 py-2 cursor-pointer rounded-full font-semibold text-white bg-gradient-to-r from-indigo-600 to-indigo-700 shadow-md hover:from-indigo-500 hover:to-indigo-600 transform hover:scale-105 transition-all duration-300">
-                  View Details
-                </button>
+                <Link to={`/viewdetails/${product.id}`}>
+                  <button className="px-5 py-2 cursor-pointer rounded-full font-semibold text-white bg-gradient-to-r from-indigo-600 to-indigo-700 shadow-md hover:from-indigo-500 hover:to-indigo-600 transform hover:scale-105 transition-all duration-300">
+                    View Details
+                  </button>
+                </Link>
+                
               </div>
             </div>
 
