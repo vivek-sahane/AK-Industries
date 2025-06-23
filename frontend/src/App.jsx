@@ -13,6 +13,7 @@ import Profile from './Pages/Profile'
 import EditProfile from './Pages/EditProfile'
 import ChangePassword from './Pages/ChangePassword'
 import ViewDetails from './Pages/ViewDetails'
+import OrderNow from './Pages/OrderNow'
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
             <Route path="/edit-profile" element={<EditProfile />} />
             <Route path="/change-password" element={<ChangePassword />} />
             <Route path='/viewdetails/:id' element={<ViewDetails />} />
+            <Route path="/order-now" element={<OrderNow/>} />
 
           </Routes>
           <Footer />

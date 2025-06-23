@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { db } from '../firebase';
 import { useAuth } from '../Components/AuthContext';
+import { Link } from 'react-router-dom';
 
 export default function Cart() {
   const { user } = useAuth();
@@ -143,10 +144,14 @@ export default function Cart() {
       </div>
 
       <div className="text-right">
-        <button className="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-lg font-semibold shadow">
-          Order Now!
-        </button>
-      </div>
+  <Link to="/order-now">
+    <button className="bg-indigo-600 cursor-pointer hover:bg-indigo-700 text-white px-6 py-3 rounded-lg font-semibold shadow">
+      Order Now!
+    </button>
+  </Link>
+</div>
+
+      
     </div>
   );
 }

@@ -81,7 +81,7 @@ const ProductList = () => {
                 <hr className="border-gray-300 w-[70%] mx-auto" />
               </div>
 
-              <div className='bg-gradient-to-r from-green-300 to-green-400 text-center text-lg font-semibold text-gray-800 py-2 rounded-xl w-[60%] mx-auto border border-black'>
+              <div className='bg-gradient-to-r from-green-300 to-green-400 text-center text-lg font-semibold text-gray-800 py-2 rounded-xl w-[60%] mx-auto border border-white'>
                 ₹{product.price}
               </div>
 
