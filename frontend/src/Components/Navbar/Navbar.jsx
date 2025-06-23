@@ -7,6 +7,9 @@ import { useAuth } from "../AuthContext"
 import { auth } from "../../firebase"
 
 const Navbar = () => {
+
+  const { cartCount } = useAuth();
+
   const [showMenu, setShowMenu] = useState(false)
   const [showDropdown, setShowDropdown] = useState(false)
   const menuRef = useRef()
@@ -61,11 +64,15 @@ const Navbar = () => {
         </div>
 
         <Link to="/cart" className="hidden sm:block">
-          <div className="flex -mt-2 cursor-pointer">
-            <img src={add_to_cart} alt='Cart' className='rounded-4xl h-10 w-10' />
-            <div className='rounded-4xl bg-red-500 h-5 w-5 -ml-2 flex items-center justify-center text-white'>0</div>
-          </div>
-        </Link>
+  <div className="relative flex items-center justify-center cursor-pointer">
+    <img src={add_to_cart} alt='Cart' className='h-10 w-10 rounded-full' />
+    {cartCount > 0 && (
+      <div className="absolute -top-1 -right-1 h-5 w-5 bg-red-500 text-white text-xs flex items-center justify-center rounded-full shadow">
+        {cartCount}
+      </div>
+    )}
+  </div>
+</Link>
 
         {/* User Profile / Login */}
         {user ? (
