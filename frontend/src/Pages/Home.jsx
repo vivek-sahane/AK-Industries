@@ -1,12 +1,16 @@
 import React from 'react'
 import ProductList from './ProductList'
 import Discount from './Discount'
+import MainDesign from './MainDesign'
 
 
 const Home = () => {
   return (
-    <div className="p-4 space-y-10">
-      <h1 className="text-2xl font-bold text-center text-indigo-900">Welcome to AK Industries</h1>
+    <div className="p-4 space-y-10 ">
+      
+      <section>
+        <MainDesign/>
+      </section>
 
       {/* Discount Banners */}
       <section>

@@ -37,18 +37,18 @@ const Navbar = () => {
 
         <img src={ak_ind_logo} alt='Logo' className='h-16 -m-4' />
 
-        <Link to="/" className="group cursor-pointer text-white hover:font-bold">
+        <Link to="/" className="group cursor-pointer text-white text-2xl hover:font-bold">
           Home
           <div className="mt-1 rounded-2xl h-1 w-full bg-blue-500 opacity-0 group-hover:opacity-100 transition-all duration-300"></div>
         </Link>
 
         <div className="hidden sm:block group">
-          <Link to="/about" className="text-white hover:font-bold">About Us</Link><div className="mt-1 rounded-2xl h-1 w-full bg-blue-500 opacity-0 group-hover:opacity-100 transition-all duration-300"></div>
+          <Link to="/about" className="text-white hover:font-bold text-2xl">About Us</Link><div className="mt-1 rounded-2xl h-1 w-full bg-blue-500 opacity-0 group-hover:opacity-100 transition-all duration-300"></div>
 
         </div>
 
         <div className="hidden sm:block group">
-          <Link to="/address" className="text-white hover:font-bold">Address</Link>
+          <Link to="/address" className="text-white hover:font-bold border-black text-2xl">Favorite</Link>
           <div className="mt-1 rounded-2xl h-1 w-full bg-blue-500 opacity-0 group-hover:opacity-100 transition-all duration-300"></div>
         </div>
 
@@ -60,7 +60,7 @@ const Navbar = () => {
         </Link>
 
         <Link to="/login" className="hidden sm:block">
-            <div className="p-2 bg-indigo-600 hover:bg-sky-400 border border-black rounded-md text-white font-semibold transition duration-300">
+            <div className="px-5 py-2 cursor-pointer rounded-full font-semibold text-white bg-gradient-to-r from-indigo-600 to-indigo-700 shadow-md hover:from-indigo-500 hover:to-indigo-600 transform hover:scale-105 transition-all duration-300">
                 LogIn
             </div>
        </Link>

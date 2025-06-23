@@ -6,6 +6,7 @@ import AboutUs from "./Pages/AboutUs"
 import Address from "./Pages/Address"
 import LogIn from "./Pages/LogIn"
 import Cart from "./Pages/Cart"
+import Footer from './Components/Footer'
 
 function App() {
   
@@ -22,6 +23,7 @@ function App() {
           <Route path="/cart" element={<Cart/>} />
           <Route path="/login" element={<LogIn/>} />
         </Routes>
+        <Footer/>
       </Router>
       
       

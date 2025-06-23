@@ -8,7 +8,7 @@ const ProductCard = ({ product, onClick }) => {
       className="w-72 bg-white rounded-xl shadow-lg p-4 hover:shadow-2xl cursor-pointer transition-all duration-300"
     >
 <img
-  src={product.imageURL}
+  src={product.imageURLs}
   alt="Kurdai"
   style={{ height: '200px', width: '200px', objectFit: 'cover' }}
 />
