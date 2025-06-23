@@ -46,7 +46,7 @@ const ProductList = () => {
 
               <div className='flex justify-between mt-3 text-gray-600 text-sm font-medium'>
                 <span>Available: {product.quantity}</span>
-                <span className='text-green-600'>{product.discount}% Off</span>
+                <span className='text-green-600'>{product.discount} Off</span>
               </div>
 
               <div className="my-3">

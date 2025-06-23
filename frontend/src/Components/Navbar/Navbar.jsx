@@ -48,7 +48,7 @@ const Navbar = () => {
         </div>
 
         <div className="hidden sm:block group">
-          <Link to="/address" className="text-white hover:font-bold border-black text-2xl">Favorite</Link>
+          <Link to="/favorite" className="text-white hover:font-bold border-black text-2xl">Favorite</Link>
           <div className="mt-1 rounded-2xl h-1 w-full bg-blue-500 opacity-0 group-hover:opacity-100 transition-all duration-300"></div>
         </div>
 
@@ -84,7 +84,7 @@ const Navbar = () => {
         }`}
       >
         <Link to="/about" onClick={() => setShowMenu(false)}>About Us</Link>
-        <Link to="/address" onClick={() => setShowMenu(false)}>Address</Link>
+        <Link to="/favorite" onClick={() => setShowMenu(false)}>Favorite</Link>
         <Link to="/cart" onClick={() => setShowMenu(false)}>Cart</Link>
         <Link to="/login" onClick={() => setShowMenu(false)}>Login</Link>
       </div>
