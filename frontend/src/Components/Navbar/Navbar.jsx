@@ -3,30 +3,38 @@ import { Link } from 'react-router-dom'
 import ak_ind_logo from "../../assets/ak_ind_logo.jpg"
 import add_to_cart from "../../assets/add_to_cart.jpeg"
 import threedot from "../../assets/threedot.png"
+import { useAuth } from "../AuthContext"
+import { auth } from "../../firebase"
 
 const Navbar = () => {
   const [showMenu, setShowMenu] = useState(false)
+  const [showDropdown, setShowDropdown] = useState(false)
   const menuRef = useRef()
   const dotRef = useRef()
+  const dropdownRef = useRef()
+  const { user } = useAuth()
 
-  // Toggle the menu
+  // Toggle 3-dot mobile menu
   const toggleMenu = (e) => {
-    // Prevent the click from immediately triggering the outside click handler
     e.stopPropagation()
-    setShowMenu(showMenu => !showMenu)
+    setShowMenu((prev) => !prev)
   }
 
-  // Close menu on outside click
+  // Close menu if clicked outside
   useEffect(() => {
     const handler = (e) => {
-      // Check if click is outside both menu and three-dot icon
-      if (menuRef.current && !menuRef.current.contains(e.target) && 
-          dotRef.current && !dotRef.current.contains(e.target)) {
+      if (
+        menuRef.current && !menuRef.current.contains(e.target) &&
+        dotRef.current && !dotRef.current.contains(e.target)
+      ) {
         setShowMenu(false)
       }
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+        setShowDropdown(false)
+      }
     }
-    document.addEventListener('mousedown', handler)
-    return () => document.removeEventListener('mousedown', handler)
+    document.addEventListener("mousedown", handler)
+    return () => document.removeEventListener("mousedown", handler)
   }, [])
 
   return (
@@ -43,12 +51,12 @@ const Navbar = () => {
         </Link>
 
         <div className="hidden sm:block group">
-          <Link to="/about" className="text-white hover:font-bold text-2xl">About Us</Link><div className="mt-1 rounded-2xl h-1 w-full bg-blue-500 opacity-0 group-hover:opacity-100 transition-all duration-300"></div>
-
+          <Link to="/about" className="text-white hover:font-bold text-2xl">About Us</Link>
+          <div className="mt-1 rounded-2xl h-1 w-full bg-blue-500 opacity-0 group-hover:opacity-100 transition-all duration-300"></div>
         </div>
 
         <div className="hidden sm:block group">
-          <Link to="/favorite" className="text-white hover:font-bold border-black text-2xl">Favorite</Link>
+          <Link to="/favorite" className="text-white hover:font-bold text-2xl">Favorite</Link>
           <div className="mt-1 rounded-2xl h-1 w-full bg-blue-500 opacity-0 group-hover:opacity-100 transition-all duration-300"></div>
         </div>
 
@@ -59,13 +67,46 @@ const Navbar = () => {
           </div>
         </Link>
 
-        <Link to="/login" className="hidden sm:block">
-            <div className="px-5 py-2 cursor-pointer rounded-full font-semibold text-white bg-gradient-to-r from-indigo-600 to-indigo-700 shadow-md hover:from-indigo-500 hover:to-indigo-600 transform hover:scale-105 transition-all duration-300">
-                LogIn
+        {/* User Profile / Login */}
+        {user ? (
+          <div className="relative hidden sm:block" ref={dropdownRef}>
+            <div
+              className="px-5 py-2 rounded-full font-semibold text-white bg-gradient-to-r from-green-600 to-green-700 shadow-md cursor-pointer"
+              onClick={() => setShowDropdown((prev) => !prev)}
+            >
+              Hi, {user.name.split(" ")[0]}
             </div>
-       </Link>
 
-        {/* Three-dot icon for small screens */}
+            {showDropdown && (
+              <div className="absolute top-full left-0 bg-white text-black rounded-md shadow-md mt-2 p-2 z-50 w-32">
+                <Link
+                  to="/profile"
+                  className="block px-4 py-2 hover:bg-gray-100"
+                  onClick={() => setShowDropdown(false)}
+                >
+                  Profile
+                </Link>
+                <button
+                  onClick={() => {
+                    auth.signOut()
+                    setShowDropdown(false)
+                  }}
+                  className="block px-4 py-2 text-left w-full hover:bg-gray-100"
+                >
+                  Logout
+                </button>
+              </div>
+            )}
+          </div>
+        ) : (
+          <Link to="/login" className="hidden sm:block">
+            <div className="px-5 py-2 cursor-pointer rounded-full font-semibold text-white bg-gradient-to-r from-indigo-600 to-indigo-700 shadow-md hover:from-indigo-500 hover:to-indigo-600 transform hover:scale-105 transition-all duration-300">
+              LogIn
+            </div>
+          </Link>
+        )}
+
+        {/* Three-dot icon (Mobile) */}
         <div className="block sm:hidden" ref={dotRef}>
           <img
             src={threedot}
@@ -76,7 +117,7 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Floating Card Menu with animation */}
+      {/* Floating Menu for Mobile */}
       <div
         ref={menuRef}
         className={`absolute top-full right-4 mt-2 bg-white rounded-lg shadow-lg p-4 z-50 sm:hidden flex flex-col gap-3 text-black w-40 transition-all duration-200 origin-top-right transform ${
@@ -86,7 +127,14 @@ const Navbar = () => {
         <Link to="/about" onClick={() => setShowMenu(false)}>About Us</Link>
         <Link to="/favorite" onClick={() => setShowMenu(false)}>Favorite</Link>
         <Link to="/cart" onClick={() => setShowMenu(false)}>Cart</Link>
-        <Link to="/login" onClick={() => setShowMenu(false)}>Login</Link>
+        {user ? (
+          <>
+            <Link to="/profile" onClick={() => setShowMenu(false)}>Profile</Link>
+            <button onClick={() => { auth.signOut(); setShowMenu(false) }}>Logout</button>
+          </>
+        ) : (
+          <Link to="/login" onClick={() => setShowMenu(false)}>Login</Link>
+        )}
       </div>
     </div>
   )
