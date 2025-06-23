@@ -19,7 +19,7 @@ function App() {
   return (
     <AuthProvider> {/* ✅ wrap everything inside AuthProvider */}
       <div className='flex-col'>
-        <Router>
+        <Router basename="/">
           <Navbar />
           <Routes>
             <Route path='/' element={<Home />} />

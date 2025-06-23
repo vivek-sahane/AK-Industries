@@ -23,8 +23,8 @@ const AboutUs = () => {
         <div className="grid sm:grid-cols-2 gap-6 mb-10">
           <div>
             <h2 className="text-xl font-semibold text-indigo-600 mb-2">Contact Information</h2>
-            <p className="text-gray-700"><strong>Phone:</strong> +91 9876543210</p>
-            <p className="text-gray-700"><strong>Email:</strong> support@akindustries.in</p>
+            <p className="text-gray-700"><strong>Phone:</strong> +91 9503720715</p>
+            <p className="text-gray-700"><strong>Email:</strong> akdhumal911@gmail.com</p>
             <p className="text-gray-700"><strong>Address:</strong> Akole, Maharashtra – 422601</p>
           </div>
 

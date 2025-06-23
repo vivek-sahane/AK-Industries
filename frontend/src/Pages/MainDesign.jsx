@@ -11,12 +11,12 @@ const MainDesign = () => {
         <div className="md:w-1/2 w-full p-4 text-center md:text-left">
           <div className="font-bold text-amber-700 text-3xl md:text-xl">AK's Special</div>
           <div className="font-bold text-4xl md:text-6xl mt-2 leading-tight">
-            Freshness <br />
-            <span className="text-indigo-700">in every bite</span>
+            Taste the tradition <br />
+            <span className="text-indigo-700">with every crunch.</span>
           </div>
 
           <div className="mt-6 text-gray-700 text-sm md:text-base w-full md:w-4/5 mx-auto md:mx-0">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus fuga assumenda eveniet vitae sit, molestias quia delectus itaque necessitatibus.
+            Our snacks are crafted using age-old recipes, premium ingredients, and a passion for perfection. From our kitchen to your plate — pure, home-style goodness that brings joy to every bite.
           </div>
         </div>
 

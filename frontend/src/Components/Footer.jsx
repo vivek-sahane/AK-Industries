@@ -29,9 +29,9 @@ const Footer = () => {
         <div>
           <h4 className="text-xl font-semibold mb-3">Contact</h4>
           <ul className="text-sm space-y-2 text-gray-300">
-            <li>📞 +91 9876543210</li>
-            <li>📧 akindustries@example.com</li>
-            <li>📍 Pune, Maharashtra</li>
+            <li>📞 +91 9503720715</li>
+            <li>📧 akdhumal911@gmail.com</li>
+            <li>📍 Akole, Pune, Maharashtra</li>
           </ul>
         </div>
 
@@ -39,8 +39,8 @@ const Footer = () => {
         <div>
           <h4 className="text-xl font-semibold mb-3">Follow Us</h4>
           <div className="flex gap-4 mt-2">
-            <a href="https://facebook.com" target="_blank" rel="noreferrer" className="hover:text-blue-400">Facebook</a>
-            <a href="https://instagram.com" target="_blank" rel="noreferrer" className="hover:text-pink-400">Instagram</a>
+            <a href="https://www.facebook.com/akshay.dhumal.1048" target="_blank" rel="noreferrer" className="hover:text-blue-400">Facebook</a>
+            <a href="https://www.instagram.com/a_k_indutries/" target="_blank" rel="noreferrer" className="hover:text-pink-400">Instagram</a>
           </div>
         </div>
 
