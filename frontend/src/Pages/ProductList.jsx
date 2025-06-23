@@ -1,37 +1,64 @@
 import React, { useEffect, useState } from 'react'
-import { collection, getDocs } from 'firebase/firestore'
+import { collection, getDocs, doc, updateDoc, getDoc } from 'firebase/firestore'
 import { db } from '../firebase'
-import fav_blank from "../assets/fav_blankk.jpg"
+import { useAuth } from '../Components/AuthContext'
+import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai'
 
 const ProductList = () => {
   const [products, setProducts] = useState([])
+  const { user } = useAuth()
+  const [favorites, setFavorites] = useState([])
 
   useEffect(() => {
     const fetchProducts = async () => {
-      const querySnapshot = await getDocs(collection(db, "products"));
+      const querySnapshot = await getDocs(collection(db, "products"))
       const result = querySnapshot.docs.map(doc => ({
         id: doc.id,
         ...doc.data()
-      }));
-      setProducts(result);
+      }))
+      setProducts(result)
     }
 
-    fetchProducts();
-  }, [])
+    const fetchFavorites = async () => {
+      if (user) {
+        const userDoc = await getDoc(doc(db, "users", user.uid))
+        if (userDoc.exists()) {
+          setFavorites(userDoc.data().favorites || [])
+        }
+      }
+    }
+
+    fetchProducts()
+    fetchFavorites()
+  }, [user])
+
+  const toggleFavorite = async (productId) => {
+    if (!user) return alert("Please log in to add favorites.")
+
+    const isFavorite = favorites.includes(productId)
+    const updatedFavorites = isFavorite
+      ? favorites.filter(id => id !== productId)
+      : [...favorites, productId]
+
+    setFavorites(updatedFavorites)
+    await updateDoc(doc(db, "users", user.uid), { favorites: updatedFavorites })
+  }
 
   return (
     <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 p-6'>
       {products.map(product => (
         <div key={product.id}>
           <div className='rounded-2xl bg-white shadow-md hover:shadow-2xl transition duration-300 transform hover:-translate-y-1 hover:scale-105 border border-gray-200'>
-
             {/* Image Section */}
             <div className='relative'>
-              <img
-                src={fav_blank}
-                alt="favorite"
-                className='h-7 w-7 absolute top-3 right-3 cursor-pointer hover:scale-110 transition'
-              />
+              {user && (
+                <button
+                  onClick={() => toggleFavorite(product.id)}
+                  className='absolute top-3 right-3 z-10 text-red-500 text-2xl'
+                >
+                  {favorites.includes(product.id) ? <AiFillHeart /> : <AiOutlineHeart />}
+                </button>
+              )}
               <img
                 src={product.ImageURLs?.[0]}
                 alt={product.name}

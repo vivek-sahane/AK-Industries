@@ -1,12 +1,30 @@
-// src/Pages/Profile.jsx
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { useAuth } from '../Components/AuthContext'      // ensure this path is correct
+import { useAuth } from '../Components/AuthContext'
 import { FiHeart, FiShoppingCart } from 'react-icons/fi'
-import { auth } from '../firebase'
+import { auth, db } from '../firebase'
+import { doc, onSnapshot } from 'firebase/firestore'
+
 
 const Profile = () => {
   const { user } = useAuth()
+  const [favoritesCount, setFavoritesCount] = useState(0)
+  const [cartCount, setCartCount] = useState(0)
+
+  useEffect(() => {
+  if (!user?.uid) return
+
+  const unsub = onSnapshot(doc(db, 'users', user.uid), (docSnap) => {
+    if (docSnap.exists()) {
+      const data = docSnap.data()
+      setFavoritesCount(data.favorites?.length || 0)
+      setCartCount(data.cart?.length || 0)
+    }
+  })
+
+  return () => unsub()
+}, [user])
+
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50 flex items-center justify-center p-6">
@@ -31,7 +49,7 @@ const Profile = () => {
           >
             <FiHeart className="text-red-500" size={32} />
             <div>
-              <p className="text-lg font-semibold">{user?.favorites?.length || 0}</p>
+              <p className="text-lg font-semibold">{favoritesCount}</p>
               <p className="text-sm text-gray-600">Favorites</p>
             </div>
           </Link>
@@ -43,7 +61,7 @@ const Profile = () => {
           >
             <FiShoppingCart className="text-green-600" size={32} />
             <div>
-              <p className="text-lg font-semibold">{user?.cart?.length || 0}</p>
+              <p className="text-lg font-semibold">{cartCount}</p>
               <p className="text-sm text-gray-600">In Cart</p>
             </div>
           </Link>
@@ -51,20 +69,24 @@ const Profile = () => {
 
         {/* Action Buttons */}
         <div className="flex justify-end gap-4 p-6 border-t border-gray-200">
-          <Link
-            to="/"
-            className="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition"
-          >
-            Home
-          </Link>
-          <button
-            onClick={() => auth.signOut()}
-            className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition"
-          >
-            Log Out
-          </button>
-        </div>
+  <Link to="/edit-profile" className="px-4 py-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600 transition">
+    Edit Profile
+  </Link>
+  <Link to="/change-password" className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition">
+    Change Password
+  </Link>
+  <button
+    onClick={() => auth.signOut()}
+    className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition"
+  >
+    Log Out
+  </button>
+</div>
+
+        
       </div>
+     
+
     </div>
   )
 }

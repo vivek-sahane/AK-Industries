@@ -10,6 +10,8 @@ import Footer from './Components/Footer'
 import Signup from './Components/Signup'
 import { AuthProvider } from './Components/AuthContext'   // ✅ import context
 import Profile from './Pages/Profile'
+import EditProfile from './Pages/EditProfile'
+import ChangePassword from './Pages/ChangePassword'
 
 function App() {
   return (
@@ -25,6 +27,8 @@ function App() {
             <Route path="/login" element={<LogIn />} />
             <Route path='/signup' element={<Signup />} />
             <Route path='/profile' element={<Profile/>} />
+            <Route path="/edit-profile" element={<EditProfile />} />
+            <Route path="/change-password" element={<ChangePassword />} />
           </Routes>
           <Footer />
         </Router>
